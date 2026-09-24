@@ -4,6 +4,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ============================================================
+# OPTIONAL: LOAD .env FILE (if present)
+# ============================================================
+# Lets you override any setting locally without editing this file.
+# Install:  pip install python-dotenv
+try:
+    from dotenv import load_dotenv
+    load_dotenv(BASE_DIR / '.env')
+except ImportError:
+    pass  # python-dotenv not installed — env vars still work normally
+
+# ============================================================
 # CORE
 # ============================================================
 SECRET_KEY = os.environ.get(
@@ -24,6 +35,8 @@ ALLOWED_HOSTS = [
     'pinnacleexcellenceawardsafrica-byte.github.io',
     'pinnacleexcellenceawardsafrica.com',
     'www.pinnacleexcellenceawardsafrica.com',
+    'pinnacleexcellenceawards.com',
+    'www.pinnacleexcellenceawards.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -32,6 +45,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://pinnacleexcellenceawardsafrica-byte.github.io',
     'https://pinnacleexcellenceawardsafrica.com',
     'https://www.pinnacleexcellenceawardsafrica.com',
+    'https://pinnacleexcellenceawards.com',
+    'https://www.pinnacleexcellenceawards.com',
 ]
 
 # ============================================================
@@ -91,13 +106,24 @@ ASGI_APPLICATION = 'pinnacle_awards.asgi.application'
 # ============================================================
 # DATABASE
 # ============================================================
-if os.environ.get('DATABASE_URL'):
+# Railway Postgres URL used as fallback so the remote DB works
+# even when DATABASE_URL env var isn't set locally.
+# An env var (or .env file) always takes priority over this.
+RAILWAY_DATABASE_URL = "postgresql://postgres:pwyPKRDwfwaBsosWMotXgDHminvuuNtz@ballast.proxy.rlwy.net:18780/railway"
+
+DATABASE_URL = os.environ.get('DATABASE_URL', RAILWAY_DATABASE_URL)
+
+if DATABASE_URL:
     import dj_database_url
+
+    # Railway's internal URL requires SSL; the public proxy usually doesn't.
+    ssl_required = "proxy.rlwy.net" not in DATABASE_URL
+
     DATABASES = {
         'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
+            default=DATABASE_URL,
             conn_max_age=600,
-            ssl_require=True
+            ssl_require=ssl_required,
         )
     }
     print("✅ Using PostgreSQL database")
