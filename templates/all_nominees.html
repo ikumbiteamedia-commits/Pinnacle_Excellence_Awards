@@ -1,0 +1,1457 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Nominees — Pinnacle Excellence Awards Africa</title>
+  <meta name="description" content="View all nominees across all categories at the Pinnacle Excellence Awards Africa. Cast your vote for your favourite candidates.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23F5C842'/%3E%3Cstop offset='100%25' stop-color='%23FFE57A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='32' fill='url(%23g)'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Quicksand,sans-serif' font-weight='900' font-size='40' fill='%230F1A14'%3EP%3C/text%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <style>
+    :root {
+      --dark: #0F1A14;
+      --green-deep: #1A3327;
+      --green: #2B6E4B;
+      --green-bright: #2EB872;
+      --gold: #F5C842;
+      --gold-soft: #FFE57A;
+      --ivory: #FFFFFF;
+      --white: #FFFFFF;
+      --ink: #0F1A14;
+      --muted: #5C6A62;
+      --line: rgba(0,0,0,.09);
+      --line-light: rgba(255,255,255,.14);
+      --danger: #dc3545;
+      --font-display: 'Quicksand', sans-serif;
+      --font-body: 'Quicksand', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: #f4f7f6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar-moika {
+      padding: .85rem 0;
+      transition: all .3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1200;
+      background: rgba(15,26,20,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line-light);
+    }
+    .navbar-brand-moika {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--ivory);
+      font-family: var(--font-display);
+      text-decoration: none;
+    }
+    .navbar-brand-moika span { color: var(--gold); }
+    .navbar-brand-moika .sub {
+      display: block;
+      font-size: .45rem;
+      letter-spacing: .2em;
+      font-weight: 600;
+      color: #9FB1A8;
+      margin-top: -2px;
+      font-family: var(--font-body);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      padding: .8rem 1.8rem;
+      border-radius: 50px;
+      border: none;
+      transition: all .28s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-gold:hover {
+      background: var(--gold-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245,200,66,.45);
+      color: var(--dark);
+    }
+    .btn-gold:disabled,
+    .btn-gold.disabled {
+      background: #6c757d;
+      color: #fff;
+      cursor: not-allowed;
+      opacity: .65;
+      box-shadow: none;
+      transform: none !important;
+    }
+    .btn-outline-ink {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid rgba(0,0,0,.15);
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      padding: .8rem 1.8rem;
+      border-radius: 50px;
+      transition: all .28s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline-ink:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,200,66,.05);
+    }
+
+    .page-hero {
+      padding: 120px 0 50px;
+      background: linear-gradient(135deg, #0F1A14 0%, #1A3327 100%);
+      color: var(--ivory);
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      font-family: var(--font-display);
+    }
+    .page-hero p {
+      color: #B7C6BE;
+      font-size: 1.05rem;
+    }
+    .eyebrow {
+      font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+      color:var(--gold-soft);display:inline-flex;align-items:center;gap:.55rem;
+    }
+    .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);display:inline-block;}
+
+    .content-wrap {
+      padding: 40px 0 60px;
+    }
+
+    /* === FILTER SECTION === */
+    .filter-section {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px 24px;
+      border: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+    .filter-section .filter-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .filter-select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      background: var(--white);
+      color: var(--ink);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235C6A62' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,200,66,0.15);
+    }
+    .filter-select:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: #f4f7f6;
+    }
+    .filter-select optgroup {
+      font-weight: 700;
+      color: var(--green);
+    }
+    .filter-select optgroup option {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px 10px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-family: var(--font-body);
+      background: var(--white);
+      transition: all 0.28s ease;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,200,66,0.12);
+    }
+    .search-box i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .filter-clear-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .filter-clear-btn:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(220, 53, 69, 0.04);
+    }
+
+    /* Active filter summary */
+    .filter-summary {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .filter-summary .label {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+    }
+    .filter-summary .chip {
+      background: #f4f7f6;
+      border: 1px solid var(--line);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 0.72rem;
+    }
+
+    /* Nominees Grid */
+    .nominees-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media(max-width:1200px) {
+      .nominees-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media(max-width:992px) {
+      .nominees-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:576px) {
+      .nominees-grid { grid-template-columns: 1fr; }
+    }
+
+    .nominee-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .nominee-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      border-color: var(--green-bright);
+    }
+    .nominee-card .img-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      background: var(--line);
+    }
+    .nominee-card .img-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .nominee-card .img-wrap .no-photo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: #f0f2f0;
+    }
+    .nominee-card .img-wrap .badge-top {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--dark);
+      color: var(--gold-soft);
+      font-size: 0.55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+    .nominee-card .img-wrap .vote-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(15,26,20,0.85);
+      backdrop-filter: blur(8px);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nominee-card .body {
+      padding: 14px 16px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .nominee-card .body .category {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green);
+    }
+    .nominee-card .body .name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      font-family: var(--font-display);
+      margin: 4px 0 6px;
+    }
+    .nominee-card .body .description {
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .nominee-card .body .progress-wrap {
+      margin-bottom: 10px;
+    }
+    .nominee-card .body .progress-bar {
+      height: 4px;
+      background: #e8ede9;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .nominee-card .body .progress-fill {
+      height: 100%;
+      background: var(--green-bright);
+      border-radius: 10px;
+    }
+    .nominee-card .body .progress-label {
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-top: 3px;
+      text-align: right;
+    }
+    .nominee-card .body .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .nominee-card .body .actions .vote-btn {
+      flex: 3;
+      background: var(--dark);
+      color: var(--ivory);
+      border: none;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 8px 12px;
+      border-radius: 30px;
+      transition: all 0.28s ease;
+      cursor: pointer;
+    }
+    .nominee-card .body .actions .vote-btn:hover:not(:disabled) {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    .nominee-card .body .actions .vote-btn:disabled {
+      background: #6c757d;
+      color: #fff;
+      opacity: .65;
+      cursor: not-allowed;
+    }
+    .nominee-card .body .actions .share-btn {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.65rem;
+      padding: 8px 10px;
+      border-radius: 30px;
+      transition: all 0.28s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .nominee-card .body .actions .share-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,200,66,0.08);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+    .empty-state i {
+      font-size: 3rem;
+      opacity: 0.3;
+      margin-bottom: 16px;
+    }
+    .empty-state h5 {
+      font-family: var(--font-display);
+      font-weight: 700;
+    }
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-mini {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+    .stat-mini .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--green);
+    }
+    .stat-mini .label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .footer-moika {
+      background: #0C1410;
+      color: #9FB1A8;
+      padding: 2rem 0 1.2rem;
+      margin-top: 40px;
+    }
+
+    .toast-moika {
+      position: fixed;
+      bottom: 1.3rem;
+      left: 1.3rem;
+      z-index: 2000;
+      background: var(--dark);
+      color: var(--ivory);
+      padding: .85rem 1.2rem;
+      border-radius: 2px;
+      border-left: 3px solid var(--green-bright);
+      box-shadow: 0 10px 26px rgba(0,0,0,.3);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all .28s ease;
+      font-size: .85rem;
+      max-width: 300px;
+    }
+    .toast-moika.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal styles */
+    .modal-moika .modal-content {
+      background: var(--white);
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .modal-moika .modal-header {
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 10;
+      border-radius: 12px 12px 0 0;
+      flex-shrink: 0;
+    }
+    .modal-moika .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-moika .modal-footer {
+      border-top: 1px solid var(--line);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      bottom: 0;
+      background: var(--white);
+      z-index: 10;
+      border-radius: 0 0 12px 12px;
+      flex-shrink: 0;
+    }
+    .modal-moika .modal-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .modal { z-index: 1300 !important; }
+    .modal-backdrop { z-index: 1250 !important; }
+    .modal-dialog-centered {
+      display: flex;
+      align-items: center;
+      min-height: calc(100% - 1rem);
+    }
+    .modal-dialog {
+      max-width: 480px;
+      margin: 1.75rem auto;
+    }
+    @media (max-width: 575.98px) {
+      .modal-dialog { margin: 0.5rem; width: calc(100% - 1rem); max-width: 100%; }
+      .modal-moika .modal-content { max-height: 92vh; border-radius: 10px; }
+      .modal-moika .modal-body { padding: 1rem; }
+      .modal-moika .modal-header, .modal-moika .modal-footer { padding: 0.75rem 1rem; }
+    }
+
+    .vote-quantity-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+    }
+    .vote-quantity-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,200,66,0.15);
+    }
+    .vote-quantity-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .vote-total-amount {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 8px;
+      text-align: center;
+    }
+    .vote-total-amount span {
+      color: var(--gold);
+      font-size: 1.3rem;
+    }
+
+    /* === STATE BANNER === */
+    .state-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1450;
+      background: #dc3545;
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    }
+    .state-banner.warning {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    body.has-state-banner .navbar-moika { top: 38px; }
+    body.has-state-banner .page-hero { padding-top: 158px; }
+    @media(max-width: 991.98px) {
+      body.has-state-banner .navbar-moika { top: 38px; }
+      body.has-state-banner .page-hero { padding-top: 148px; }
+    }
+
+    /* Pagination styling */
+    .pagination .page-link {
+      border-radius: 8px;
+      margin: 0 3px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 8px 14px;
+    }
+    .pagination .page-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,200,66,0.05);
+    }
+    .pagination .page-item.active .page-link {
+      background: var(--green-deep);
+      border-color: var(--green-deep);
+      color: var(--ivory);
+    }
+    .pagination .page-item.disabled .page-link {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+<!-- STATE FLAGS + BANNER -->
+{% if not voting_open or not nominations_open %}
+  <div class="state-banner {% if not voting_open and nominations_open %}warning{% endif %}">
+    <i class="fas fa-info-circle"></i>
+    {% if not voting_open and not nominations_open %}
+      Voting &amp; Nominations are currently closed
+    {% elif not voting_open %}
+      Voting is currently closed
+    {% elif not nominations_open %}
+      Nominations are currently closed
+    {% endif %}
+  </div>
+  <script>document.body.classList.add('has-state-banner');</script>
+{% endif %}
+
+<script>
+  window.PINNACLE_STATE = {
+    votingOpen: {{ voting_open|yesno:"true,false" }},
+    nominationsOpen: {{ nominations_open|yesno:"true,false" }}
+  };
+</script>
+
+<!-- NAVBAR -->
+<nav class="navbar-moika">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand-moika">PINNACLE <span>EXCELLENCE</span><span class="sub">AWARDS AFRICA</span></a>
+    <div class="d-flex align-items-center gap-3">
+      <a href="/" class="btn btn-outline-light btn-sm" style="color:var(--ivory);border-color:rgba(255,255,255,.2);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:.4rem 1rem;border-radius:30px;">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+      {% if nominations_open %}
+        <a href="/nominate/" class="btn btn-gold btn-sm" style="padding:.4rem 1.2rem;font-size:.7rem;">Nominate</a>
+      {% else %}
+        <button class="btn btn-gold btn-sm" disabled title="Nominations are currently closed" style="padding:.4rem 1.2rem;font-size:.7rem;opacity:.5;cursor:not-allowed;">
+          <i class="fas fa-lock"></i> Closed
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Pinnacle Excellence Awards Africa · 2026</span>
+      <h1>All Nominees</h1>
+      <p class="mx-auto" style="max-width:620px;">
+        {% if voting_open %}
+          Explore all the nominees across every category. Cast your vote and support excellence.
+        {% else %}
+          Explore all the nominees across every category. Voting is currently closed — check back soon.
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="content-wrap">
+  <div class="container">
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-mini">
+        <div class="num">{{ total_nominees }}</div>
+        <div class="label">Total Nominees</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">{{ total_categories }}</div>
+        <div class="label">Categories</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">{{ total_groups }}</div>
+        <div class="label">Main Groups</div>
+      </div>
+    </div>
+
+    <!-- FILTER & SEARCH -->
+    <div class="filter-section">
+      <div class="row g-3 align-items-end">
+        <!-- Group Filter -->
+        <div class="col-lg-3 col-md-6">
+          <label class="filter-label" for="groupFilter">
+            <i class="fas fa-layer-group me-1"></i> Main Group
+          </label>
+          <select class="filter-select" id="groupFilter" onchange="onGroupChange()">
+            <option value="all">All Groups</option>
+            {% regroup categories by group as grouped_categories %}
+            {% for group in grouped_categories %}
+              <option value="{{ group.grouper }}">{{ group.grouper }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="col-lg-3 col-md-6">
+          <label class="filter-label" for="categoryFilter">
+            <i class="fas fa-tags me-1"></i> Category
+          </label>
+          <select class="filter-select" id="categoryFilter" onchange="onCategoryChange()">
+            <option value="all">All Categories</option>
+            {% regroup categories by group as grouped_categories %}
+            {% for group in grouped_categories %}
+              <optgroup label="{{ group.grouper }}">
+                {% for cat in group.list %}
+                  <option value="{{ cat.name }}">{{ cat.name }}</option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Search -->
+        <div class="col-lg-4 col-md-8">
+          <label class="filter-label" for="searchNominees">
+            <i class="fas fa-search me-1"></i> Search
+          </label>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchNominees" placeholder="Search by name, phone, or category..." oninput="filterNominees()">
+          </div>
+        </div>
+
+        <!-- Clear -->
+        <div class="col-lg-2 col-md-4">
+          <label class="filter-label">&nbsp;</label>
+          <button type="button" class="filter-clear-btn" onclick="clearFilters()">
+            <i class="fas fa-times"></i> Clear Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Active filter summary -->
+      <div class="filter-summary" id="filterSummary" style="display:none;">
+        <span class="label">Active filters:</span>
+        <span class="chip" id="chipGroup" style="display:none;"></span>
+        <span class="chip" id="chipCategory" style="display:none;"></span>
+        <span class="chip" id="chipSearch" style="display:none;"></span>
+        <span class="chip" id="chipCount"></span>
+      </div>
+    </div>
+
+    <!-- Nominees Grid -->
+    <div class="nominees-grid" id="nomineesGrid">
+      {% for nominee in nominees %}
+        <div class="nominee-card"
+             data-group="{{ nominee.group }}"
+             data-category-id="{{ nominee.category.id }}"
+             data-category-name="{{ nominee.category.name }}"
+             data-name="{{ nominee.name|lower }}"
+             data-stage-name="{{ nominee.stage_name|default:''|lower }}"
+             data-phone="{{ nominee.phone|default:''|lower }}"
+             data-description="{{ nominee.description|lower|truncatechars:200 }}">
+          <div class="img-wrap">
+            {% if nominee.photo %}
+              <img src="{{ nominee.photo.url }}" alt="{{ nominee.name }}" loading="lazy">
+            {% else %}
+              <div class="no-photo">{{ nominee.name|first|upper }}</div>
+            {% endif %}
+            <span class="badge-top">{{ nominee.group }}</span>
+            <span class="vote-badge"><i class="fas fa-vote-yea"></i> {{ nominee.votes|intcomma }}</span>
+          </div>
+          <div class="body">
+            <div class="category">{{ nominee.category.name }}</div>
+            <div class="name">{{ nominee.name }}</div>
+            <div class="description">{{ nominee.description|truncatechars:100 }}</div>
+            <div class="progress-wrap">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width:{% if max_votes %}{% widthratio nominee.votes max_votes 100 %}{% else %}0{% endif %}%"></div>
+              </div>
+              <div class="progress-label">{{ nominee.votes }} votes</div>
+            </div>
+            <div class="actions">
+              {% if voting_open %}
+                <button class="vote-btn" data-nominee="{{ nominee.id }}" data-category="{{ nominee.category.id }}">
+                  <i class="fas fa-vote-yea"></i> Vote
+                </button>
+              {% else %}
+                <button class="vote-btn" disabled title="Voting is currently closed">
+                  <i class="fas fa-lock"></i> Voting Closed
+                </button>
+              {% endif %}
+              <button class="share-btn" onclick="shareNominee('{{ nominee.voting_slug }}', '{{ nominee.name|escapejs }}', '{{ nominee.id }}')" title="Share">
+                <i class="fas fa-share-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="empty-state" style="grid-column:1/-1;">
+          <i class="fas fa-users"></i>
+          <h5>No Nominees Found</h5>
+          <p>There are currently no nominees in this category. Check back later or submit a nomination.</p>
+          {% if nominations_open %}
+            <a href="/nominate/" class="btn btn-gold mt-2">Nominate Now</a>
+          {% else %}
+            <button class="btn btn-gold mt-2" disabled style="opacity:.5;cursor:not-allowed;">Nominations Closed</button>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- No results message -->
+    <div id="noSearchResults" style="display:none;">
+      <div class="empty-state">
+        <i class="fas fa-search"></i>
+        <h5>No Matches Found</h5>
+        <p>Try a different search term or clear the filters.</p>
+        <button class="btn btn-outline-ink mt-2" onclick="clearFilters()">Clear Filters</button>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if nominees.has_other_pages %}
+    <div class="d-flex justify-content-center mt-4">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          {% if nominees.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ nominees.previous_page_number }}{% if current_filter %}&category={{ current_filter }}{% endif %}">Previous</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+          {% endif %}
+
+          {% for num in nominees.paginator.page_range %}
+            {% if nominees.number == num %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > nominees.number|add:'-3' and num < nominees.number|add:'3' %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}{% if current_filter %}&category={{ current_filter }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if nominees.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ nominees.next_page_number }}{% if current_filter %}&category={{ current_filter }}{% endif %}">Next</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-moika">
+  <div class="container text-center">
+    <p class="small">&copy; {% now "Y" %} Pinnacle Excellence Awards Africa. All rights reserved.</p>
+    <p class="small" style="color:#6C7B72;">Celebrating Excellence. Inspiring Impact. Honouring Greatness.</p>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast-moika" id="toastMoika"></div>
+
+<!-- PAY MODAL -->
+<div class="modal fade modal-moika" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-display" id="payModalLabel">Cast Your Vote</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-1 fw-bold" id="payNomineeName"></p>
+        <p class="muted small mb-3" id="payCategoryName"></p>
+
+        <div class="form-group" style="margin-bottom:12px;">
+          <label class="vote-quantity-label">Number of Votes</label>
+          <input type="number" class="vote-quantity-input" id="voteQuantity" value="1" min="1" max="50" onchange="updateVoteTotal()" oninput="updateVoteTotal()">
+          <div style="font-size:0.65rem;color:var(--muted);margin-top:4px;">You can vote up to 50 times per transaction</div>
+        </div>
+
+        <div class="vote-total-amount">
+          Total: <span id="voteTotalAmount">KSH 10</span>
+        </div>
+
+        <hr style="margin:12px 0;">
+
+        <p class="mb-2 small">Enter your phone number to pay via M-Pesa and cast your vote(s).</p>
+        <input type="tel" class="form-control mb-2" id="payPhone" placeholder="e.g. 0712345678" style="border-radius:4px;border:1px solid rgba(0,0,0,.15);">
+        <div id="payStatus" class="small mt-2"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-ink" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-gold" id="payConfirmBtn">Pay &amp; Vote</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOTE CONFIRMATION MODAL -->
+<div class="modal fade modal-moika" id="voteModal" tabindex="-1" aria-labelledby="voteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-3">
+      <div class="modal-body">
+        <i class="fas fa-check-circle" style="font-size:2.4rem;color:var(--green-bright);"></i>
+        <h5 class="font-display mt-3" id="voteModalTitle">Vote Submitted</h5>
+        <p class="muted" id="voteModalText">Thank you for voting. Your voice has been counted.</p>
+        <button type="button" class="btn btn-gold mt-2" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const VOTING_OPEN = window.PINNACLE_STATE.votingOpen;
+const NOMINATIONS_OPEN = window.PINNACLE_STATE.nominationsOpen;
+
+// ============================================================
+// VOTE QUANTITY
+// ============================================================
+const VOTE_PRICE = 10;
+
+function updateVoteTotal() {
+    const quantity = parseInt(document.getElementById('voteQuantity').value) || 1;
+    const total = quantity * VOTE_PRICE;
+    document.getElementById('voteTotalAmount').textContent = 'KSH ' + total;
+}
+
+// ============================================================
+// COOKIE HELPER
+// ============================================================
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+    const t = document.getElementById('toastMoika');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ============================================================
+// DISABLE VOTE BUTTONS IF VOTING CLOSED
+// ============================================================
+function applyVotingState() {
+    if (VOTING_OPEN) return;
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-lock"></i> Voting Closed';
+        btn.title = 'Voting is currently closed';
+    });
+}
+applyVotingState();
+
+// ============================================================
+// SHARE NOMINEE
+// ============================================================
+function shareNominee(slug, name, id) {
+    const url = window.location.origin + '/vote/' + slug + '/';
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('✅ Link copied! Share it with your friends!');
+    }).catch(() => {
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast('✅ Link copied!');
+    });
+
+    fetch('/api/track-share/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            nominee_id: parseInt(id),
+            platform: 'copy'
+        })
+    }).catch(() => {});
+}
+
+// ============================================================
+// PAYSTACK INLINE PAYMENT
+// ============================================================
+let pendingVote = null;
+
+document.querySelectorAll('.vote-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        if (!VOTING_OPEN) {
+            showToast('⚠️ Voting is currently closed.');
+            return;
+        }
+        if (this.disabled) return;
+
+        const cat = this.dataset.category;
+        const name = this.closest('.nominee-card').querySelector('.name').textContent;
+
+        pendingVote = {
+            cat: cat,
+            name: name,
+            nomineeId: this.dataset.nominee
+        };
+
+        document.getElementById('payNomineeName').textContent = name;
+        document.getElementById('payCategoryName').textContent = this.closest('.nominee-card').querySelector('.category').textContent;
+        document.getElementById('payPhone').value = '';
+        document.getElementById('payStatus').textContent = '';
+        document.getElementById('voteQuantity').value = 1;
+        updateVoteTotal();
+
+        const confirmBtn = document.getElementById('payConfirmBtn');
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Pay & Vote';
+
+        new bootstrap.Modal(document.getElementById('payModal')).show();
+    });
+});
+
+document.getElementById('payConfirmBtn').addEventListener('click', function() {
+    if (!pendingVote) return;
+
+    if (!VOTING_OPEN) {
+        showToast('⚠️ Voting is currently closed.');
+        return;
+    }
+
+    const phone = document.getElementById('payPhone').value.trim();
+    const quantity = parseInt(document.getElementById('voteQuantity').value) || 1;
+    const totalAmount = quantity * VOTE_PRICE;
+    const statusEl = document.getElementById('payStatus');
+
+    if (!/^0[17]\d{8}$/.test(phone)) {
+        statusEl.style.color = '#B23A3A';
+        statusEl.textContent = 'Enter a valid phone number, e.g. 0712345678.';
+        return;
+    }
+
+    if (quantity < 1 || quantity > 50) {
+        statusEl.style.color = '#B23A3A';
+        statusEl.textContent = 'Please enter between 1 and 50 votes.';
+        return;
+    }
+
+    const confirmBtn = this;
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'Processing...';
+    statusEl.style.color = 'var(--muted)';
+    statusEl.textContent = `Initializing payment for ${quantity} vote(s)...`;
+
+    fetch('/paystack/initialize/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            nominee_id: pendingVote.nomineeId,
+            phone: phone,
+            amount: totalAmount,
+            quantity: quantity,
+            email: ''
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.authorization_url) {
+            var handler = PaystackPop.setup({
+                key: '{{ paystack_public_key|default:"" }}',
+                email: data.email || 'voter@example.com',
+                amount: totalAmount * 100,
+                currency: 'KES',
+                ref: data.reference,
+                callback: function(response) {
+                    verifyPayment(response.reference, pendingVote.nomineeId, quantity);
+                },
+                onClose: function() {
+                    statusEl.style.color = '#B23A3A';
+                    statusEl.textContent = 'Payment was cancelled.';
+                    confirmBtn.disabled = false;
+                    confirmBtn.textContent = 'Pay & Vote';
+                }
+            });
+            handler.openIframe();
+        } else {
+            statusEl.style.color = '#B23A3A';
+            statusEl.textContent = data.message || 'Payment initialization failed';
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Pay & Vote';
+        }
+    })
+    .catch(error => {
+        statusEl.style.color = '#B23A3A';
+        statusEl.textContent = 'An error occurred. Please try again.';
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Pay & Vote';
+        console.error('Paystack error:', error);
+    });
+});
+
+function verifyPayment(reference, nomineeId, quantity) {
+    fetch('/paystack/verify/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            reference: reference,
+            nominee_id: nomineeId,
+            quantity: quantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            bootstrap.Modal.getInstance(document.getElementById('payModal')).hide();
+
+            document.getElementById('voteModalTitle').textContent = 'Vote Submitted!';
+            document.getElementById('voteModalText').textContent = `Thank you for voting! ${quantity} vote(s) recorded for ${data.nominee_name || 'the nominee'}.`;
+            new bootstrap.Modal(document.getElementById('voteModal')).show();
+
+            showToast(`✅ ${quantity} vote(s) recorded! Thank you.`);
+            setTimeout(() => location.reload(), 1800);
+        } else {
+            showToast('❌ ' + (data.message || 'Payment verification failed.'));
+        }
+    })
+    .catch(error => {
+        showToast('❌ An error occurred during verification.');
+        console.error('Verification error:', error);
+    });
+}
+
+// ============================================================
+// DROPDOWN FILTERS
+// ============================================================
+
+/**
+ * Handle Group dropdown change.
+ * - When a group is picked, filter the Category dropdown to only show that group's categories.
+ * - Then apply all active filters.
+ */
+function onGroupChange() {
+    const groupFilter = document.getElementById('groupFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const selectedGroup = groupFilter.value;
+
+    // Enable/disable optgroups in category dropdown based on selected group
+    const allOptgroups = categoryFilter.querySelectorAll('optgroup');
+    allOptgroups.forEach(og => {
+        if (selectedGroup === 'all') {
+            og.disabled = false;
+            og.style.display = '';
+        } else if (og.label === selectedGroup) {
+            og.disabled = false;
+            og.style.display = '';
+        } else {
+            og.disabled = true;
+            og.style.display = 'none';
+        }
+    });
+
+    // If the currently selected category is no longer visible, reset it
+    const currentCat = categoryFilter.value;
+    if (currentCat !== 'all') {
+        const currentOption = categoryFilter.querySelector(`option[value="${CSS.escape(currentCat)}"]`);
+        if (!currentOption || currentOption.parentElement.disabled) {
+            categoryFilter.value = 'all';
+        }
+    }
+
+    filterNominees();
+}
+
+/**
+ * Handle Category dropdown change.
+ * - If a category is picked, auto-set the Group dropdown to its group.
+ */
+function onCategoryChange() {
+    const groupFilter = document.getElementById('groupFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const selectedCat = categoryFilter.value;
+
+    if (selectedCat !== 'all') {
+        const option = categoryFilter.querySelector(`option[value="${CSS.escape(selectedCat)}"]`);
+        if (option && option.parentElement.tagName === 'OPTGROUP') {
+            groupFilter.value = option.parentElement.label;
+            // Re-run group change to sync optgroup visibility
+            onGroupChange();
+            return;
+        }
+    }
+
+    filterNominees();
+}
+
+/**
+ * Apply all filters: group, category, and search.
+ */
+function filterNominees() {
+    const groupValue = document.getElementById('groupFilter').value;
+    const categoryValue = document.getElementById('categoryFilter').value;
+    const search = document.getElementById('searchNominees').value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    document.querySelectorAll('#nomineesGrid .nominee-card').forEach(card => {
+        const group = card.dataset.group || '';
+        const categoryName = card.dataset.categoryName || '';
+        const name = card.dataset.name || '';
+        const stageName = card.dataset.stageName || '';
+        const phone = card.dataset.phone || '';
+        const description = card.dataset.description || '';
+
+        let show = true;
+
+        if (groupValue !== 'all' && group !== groupValue) {
+            show = false;
+        }
+
+        if (categoryValue !== 'all' && categoryName !== categoryValue) {
+            show = false;
+        }
+
+        if (search) {
+            const haystack = `${name} ${stageName} ${phone} ${categoryName} ${description} ${group}`;
+            if (!haystack.includes(search)) {
+                show = false;
+            }
+        }
+
+        card.style.display = show ? 'flex' : 'none';
+        if (show) visibleCount++;
+    });
+
+    // Show/hide no-results message
+    const noResults = document.getElementById('noSearchResults');
+    const grid = document.getElementById('nomineesGrid');
+    const hasFilters = (groupValue !== 'all' || categoryValue !== 'all' || search);
+
+    if (visibleCount === 0 && hasFilters) {
+        if (noResults) noResults.style.display = 'block';
+        if (grid) grid.style.display = 'none';
+    } else {
+        if (noResults) noResults.style.display = 'none';
+        if (grid) grid.style.display = 'grid';
+    }
+
+    // Update active filter summary
+    updateFilterSummary(groupValue, categoryValue, search, visibleCount);
+}
+
+/**
+ * Render the "active filters" summary strip below the dropdowns.
+ */
+function updateFilterSummary(group, category, search, count) {
+    const summary = document.getElementById('filterSummary');
+    const chipGroup = document.getElementById('chipGroup');
+    const chipCategory = document.getElementById('chipCategory');
+    const chipSearch = document.getElementById('chipSearch');
+    const chipCount = document.getElementById('chipCount');
+
+    const hasFilters = (group !== 'all' || category !== 'all' || search);
+
+    if (!hasFilters) {
+        summary.style.display = 'none';
+        return;
+    }
+
+    summary.style.display = 'flex';
+
+    if (group !== 'all') {
+        chipGroup.style.display = 'inline-block';
+        chipGroup.textContent = 'Group: ' + group;
+    } else {
+        chipGroup.style.display = 'none';
+    }
+
+    if (category !== 'all') {
+        chipCategory.style.display = 'inline-block';
+        chipCategory.textContent = 'Category: ' + category;
+    } else {
+        chipCategory.style.display = 'none';
+    }
+
+    if (search) {
+        chipSearch.style.display = 'inline-block';
+        chipSearch.textContent = 'Search: "' + search + '"';
+    } else {
+        chipSearch.style.display = 'none';
+    }
+
+    chipCount.textContent = count + ' result' + (count === 1 ? '' : 's');
+}
+
+/**
+ * Reset all filters.
+ */
+function clearFilters() {
+    document.getElementById('groupFilter').value = 'all';
+    document.getElementById('categoryFilter').value = 'all';
+    document.getElementById('searchNominees').value = '';
+
+    // Re-enable all optgroups in category dropdown
+    const categoryFilter = document.getElementById('categoryFilter');
+    categoryFilter.querySelectorAll('optgroup').forEach(og => {
+        og.disabled = false;
+        og.style.display = '';
+    });
+
+    filterNominees();
+}
+
+// ============================================================
+// INITIAL FILTER STATE ON PAGE LOAD
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Sync filters with URL params if present
+    const params = new URLSearchParams(window.location.search);
+    const urlCategory = params.get('category');
+    if (urlCategory && urlCategory !== 'all') {
+        const groupFilter = document.getElementById('groupFilter');
+        groupFilter.value = urlCategory;
+        onGroupChange();
+    }
+});
+
+// ============================================================
+// NAVBAR SCROLL EFFECT
+// ============================================================
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('.navbar-moika');
+    if (window.scrollY > 20) {
+        nav.style.background = 'rgba(15,26,20,0.96)';
+        nav.style.boxShadow = '0 4px 18px rgba(0,0,0,.25)';
+    } else {
+        nav.style.background = 'rgba(15,26,20,0.92)';
+        nav.style.boxShadow = 'none';
+    }
+});
+</script>
+</body>
+</html>

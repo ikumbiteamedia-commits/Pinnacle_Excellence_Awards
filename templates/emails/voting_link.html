@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Voting Link</title>
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f7f6; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #0F1A14 0%, #1A3327 100%); padding: 30px 40px; text-align: center;">
+                            <h1 style="color: #F5C842; margin: 0; font-size: 28px; font-weight: 700;">PINNACLE EXCELLENCE</h1>
+                            <p style="color: #9FB1A8; margin: 4px 0 0; font-size: 14px; letter-spacing: 2px;">AWARDS AFRICA</p>
+                        </td>
+                    </tr>
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <h2 style="color: #0F1A14; margin-top: 0;">Hello {{ nominee.get_display_name }}! 👋</h2>
+                            <p style="color: #5C6A62; font-size: 16px; line-height: 1.6;">
+                                You have been successfully nominated for the <strong>{{ nominee.category.name }}</strong> category at the <strong>Pinnacle Excellence Awards Africa</strong>.
+                            </p>
+                            <p style="color: #5C6A62; font-size: 16px; line-height: 1.6;">
+                                Your personalized voting link is ready! Share it with your supporters and start collecting votes.
+                            </p>
+                            <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; border-left: 4px solid #F5C842;">
+                                <p style="margin: 0; font-size: 14px; color: #5C6A62;">
+                                    <strong>Your Voting Link:</strong>
+                                </p>
+                                <a href="{{ voting_url }}" style="color: #2B6E4B; font-size: 18px; font-weight: 600; word-break: break-all; text-decoration: underline;">
+                                    {{ voting_url }}
+                                </a>
+                            </div>
+                            
+                            <h3 style="color: #0F1A14; margin-top: 30px;">🏆 Tips to Win the Award</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">📢 <strong>Share Your Link</strong> - Share your voting link with friends, family, and followers</li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">📱 <strong>Social Media</strong> - Post on WhatsApp, Instagram, Facebook, and Twitter</li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">👥 <strong>Community Engagement</strong> - Ask your community to vote for you</li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">📧 <strong>Email Campaign</strong> - Send your link to your email contacts</li>
+                                <li style="padding: 8px 0;">🔄 <strong>Vote Multiple Times</strong> - Unlimited voting allowed, encourage supporters to vote multiple times</li>
+                            </ul>
+                            
+                            <div style="background-color: #FFF8E1; border-radius: 8px; padding: 16px 20px; margin: 20px 0; border-left: 4px solid #F5C842;">
+                                <p style="margin: 0; color: #5C6A62; font-size: 14px;">
+                                    💡 <strong>Quick Tip:</strong> Every vote counts! The more you share, the higher your chances of winning.
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center; margin: 30px 0;">
+                                <a href="{{ voting_url }}" style="background-color: #F5C842; color: #0F1A14; padding: 14px 40px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block;">
+                                    🗳️ Start Getting Votes
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #0F1A14; padding: 20px 40px; text-align: center;">
+                            <p style="color: #6C7B72; margin: 0; font-size: 12px;">
+                                &copy; {% now "Y" %} Pinnacle Excellence Awards Africa. All rights reserved.
+                            </p>
+                            <p style="color: #6C7B72; margin: 4px 0 0; font-size: 12px;">
+                                Celebrating Excellence. Inspiring Impact. Honouring Greatness.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

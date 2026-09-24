@@ -1,0 +1,1031 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if site_settings.site_name %}{{ site_settings.site_name }}{% else %}Pinnacle Excellence Awards Africa{% endif %} — Nominate Yourself</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23F5C842'/%3E%3Cstop offset='100%25' stop-color='%23FFE57A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='32' fill='url(%23g)'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Quicksand,sans-serif' font-weight='900' font-size='40' fill='%230F1A14'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <style>
+    :root {
+      --dark: #0F1A14;
+      --green-deep: #1A3327;
+      --green: #2B6E4B;
+      --green-bright: #2EB872;
+      --gold: #F5C842;
+      --gold-soft: #FFE57A;
+      --ivory: #FFFFFF;
+      --white: #FFFFFF;
+      --ink: #0F1A14;
+      --muted: #5C6A62;
+      --line: rgba(0,0,0,.09);
+      --line-light: rgba(255,255,255,.14);
+      --danger: #dc3545;
+      --font-display: 'Quicksand', sans-serif;
+      --font-body: 'Quicksand', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: #f4f7f6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar-moika {
+      padding: .85rem 0;
+      transition: all .3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1200;
+      background: rgba(15,26,20,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line-light);
+    }
+    .navbar-brand-moika {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--ivory);
+      font-family: var(--font-display);
+      text-decoration: none;
+    }
+    .navbar-brand-moika span { color: var(--gold); }
+    .navbar-brand-moika .sub {
+      display: block;
+      font-size: .45rem;
+      letter-spacing: .2em;
+      font-weight: 600;
+      color: #9FB1A8;
+      margin-top: -2px;
+      font-family: var(--font-body);
+    }
+
+    .nominate-hero {
+      padding: 120px 0 40px;
+      background: linear-gradient(135deg, #0F1A14 0%, #1A3327 100%);
+      color: var(--ivory);
+    }
+    .nominate-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      font-family: var(--font-display);
+    }
+    .nominate-hero p {
+      color: #B7C6BE;
+      font-size: 1.05rem;
+    }
+    .eyebrow {
+      font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+      color:var(--gold-soft);display:inline-flex;align-items:center;gap:.55rem;
+    }
+    .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);display:inline-block;}
+
+    .form-wrap {
+      padding: 30px 0 60px;
+    }
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.6rem;
+      max-width: 720px;
+      margin: 0 auto;
+      box-shadow: 0 24px 60px rgba(7,26,51,0.16);
+    }
+    @media (max-width: 767px) {
+      .form-card { padding: 1.7rem 1.3rem; }
+    }
+
+    .form-section-label {
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .photo-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+      margin-bottom: 1.8rem;
+    }
+    .photo-circle {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: var(--ivory);
+      border: 2px dashed rgba(7,26,51,.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .28s ease;
+    }
+    .photo-circle:hover { border-color: var(--gold); }
+    .photo-circle img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .photo-circle i {
+      font-size: 1.5rem;
+      color: var(--muted);
+    }
+    .photo-upload-text .btn-photo {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--dark);
+      border: 1px solid rgba(7,26,51,.2);
+      background: transparent;
+      padding: .5rem 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all .28s ease;
+    }
+    .photo-upload-text .btn-photo:hover {
+      border-color: var(--gold);
+      color: var(--dark);
+      background: rgba(245,200,66,.12);
+    }
+    .photo-upload-text .hint {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-top: .4rem;
+    }
+
+    .form-label-moika {
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--ink);
+      margin-bottom: .35rem;
+      display: block;
+    }
+    .form-label-moika .opt {
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .form-control-moika {
+      width: 100%;
+      background: #f8f9fa;
+      border: 1px solid rgba(7,26,51,.12);
+      border-radius: 8px;
+      padding: .72rem .9rem;
+      font-size: .92rem;
+      font-family: var(--font-body);
+      color: var(--ink);
+      transition: all .28s ease;
+    }
+    .form-control-moika:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(245,200,66,.18);
+    }
+    textarea.form-control-moika { resize: vertical; min-height: 100px; }
+    .form-select-moika {
+      width: 100%;
+      background: #f8f9fa;
+      border: 1px solid rgba(7,26,51,.12);
+      border-radius: 8px;
+      padding: .72rem .9rem;
+      font-size: .92rem;
+      font-family: var(--font-body);
+      color: var(--ink);
+      transition: all .28s ease;
+    }
+    .form-select-moika:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(245,200,66,.18);
+    }
+    .field-help {
+      font-size: .74rem;
+      color: var(--muted);
+      margin-top: .3rem;
+    }
+
+    .form-check-nom {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+    }
+    .form-check-nom input {
+      margin-top: .28rem;
+      accent-color: var(--gold);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .form-check-nom label {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .btn-submit-nom {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .95rem;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 8px 26px rgba(245,200,66,.35);
+      transition: all .28s ease;
+      cursor: pointer;
+    }
+    .btn-submit-nom:hover {
+      background: var(--gold-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(245,200,66,.5);
+    }
+    .btn-submit-nom:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    .btn-submit-nom.closed {
+      background: #6c757d;
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .footer-moika {
+      background: #0C1410;
+      color: #9FB1A8;
+      padding: 2rem 0 1.2rem;
+      margin-top: 40px;
+    }
+
+    .toast-moika {
+      position: fixed;
+      bottom: 1.3rem;
+      left: 1.3rem;
+      z-index: 2000;
+      background: var(--dark);
+      color: var(--ivory);
+      padding: .85rem 1.2rem;
+      border-radius: 2px;
+      border-left: 3px solid var(--green-bright);
+      box-shadow: 0 10px 26px rgba(0,0,0,.3);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: all .28s ease;
+      font-size: .85rem;
+      max-width: 300px;
+    }
+    .toast-moika.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.6rem;
+      margin-top: 1.6rem;
+      font-size: .76rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .trust-row i { color: var(--gold); }
+
+    /* Confirmation Modal */
+    .modal-nom .modal-content {
+      background: var(--white);
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+    }
+    .modal-nom .modal-body { padding: 2.4rem; text-align: center; }
+    .modal-nom .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(245,200,66,.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.1rem;
+    }
+    .modal-nom .success-icon i { color: var(--gold); font-size: 1.7rem; }
+    .modal-nom h4 { font-size: 1.4rem; margin-bottom: .5rem; }
+    .modal-nom p.lead-text {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+    .link-box {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: #f8f9fa;
+      border: 1px solid rgba(7,26,51,.12);
+      border-radius: 10px;
+      padding: .6rem .6rem .6rem 1rem;
+      margin-bottom: 1.3rem;
+    }
+    .link-box input {
+      border: none;
+      background: transparent;
+      flex: 1;
+      font-size: .82rem;
+      color: var(--dark);
+      font-weight: 600;
+      outline: none;
+      min-width: 0;
+    }
+    .link-box button {
+      background: var(--dark);
+      color: var(--gold-soft);
+      border: none;
+      border-radius: 7px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: .55rem .9rem;
+      cursor: pointer;
+      transition: all .28s ease;
+      flex-shrink: 0;
+    }
+    .link-box button:hover { background: #12233F; }
+    .share-row {
+      display: flex;
+      justify-content: center;
+      gap: .6rem;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(7,26,51,.12);
+      color: var(--dark);
+      transition: all .28s ease;
+      text-decoration: none;
+    }
+    .share-btn:hover {
+      border-color: var(--gold);
+      background: rgba(245,200,66,.1);
+    }
+    .btn-photo {
+      display: inline-block;
+      color: var(--dark);
+      border: 1px solid rgba(7,26,51,.2);
+      border-radius: 30px;
+      padding: .6rem 1.4rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all .28s ease;
+    }
+    .btn-photo:hover {
+      border-color: var(--gold);
+      background: rgba(245,200,66,.1);
+    }
+
+    .main-category-select-wrap {
+      margin-bottom: 12px;
+    }
+    .main-category-select-wrap select {
+      font-weight: 600;
+    }
+    .sub-category-select-wrap select option:disabled {
+      color: var(--muted);
+    }
+    .sub-category-select-wrap select optgroup {
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .sub-category-select-wrap select optgroup option {
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* === NOMINATIONS CLOSED BANNER === */
+    .closed-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1450;
+      background: #dc3545;
+      color: #fff;
+      text-align: center;
+      padding: 12px 16px;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+    .closed-banner i { margin-right: 8px; }
+
+    /* When banner is showing, push navbar down */
+    body.has-closed-banner .navbar-moika { top: 44px; }
+    body.has-closed-banner .nominate-hero { padding-top: 164px; }
+
+    /* Closed form state */
+    body.nominations-closed .form-card {
+      position: relative;
+    }
+    body.nominations-closed .form-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(2px);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .closed-notice {
+      background: #fff3cd;
+      border-left: 4px solid #F5C842;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .closed-notice i {
+      color: #B58A00;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .closed-notice .title {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .closed-notice .desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body class="{% if not nominations_open %}nominations-closed{% endif %}">
+
+<!-- NOMINATIONS CLOSED BANNER -->
+{% if not nominations_open %}
+<div class="closed-banner">
+  <i class="fas fa-lock"></i> Nominations are currently closed — please check back soon
+</div>
+<script>document.body.classList.add('has-closed-banner');</script>
+{% endif %}
+
+<script>
+  window.PINNACLE_STATE = {
+    nominationsOpen: {{ nominations_open|yesno:"true,false" }}
+  };
+</script>
+
+<!-- NAVBAR -->
+<nav class="navbar-moika">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand-moika">PINNACLE <span>EXCELLENCE</span><span class="sub">AWARDS AFRICA</span></a>
+    <div>
+      <a href="/" class="btn btn-outline-light btn-sm" style="color:var(--ivory);border-color:rgba(255,255,255,.2);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:.4rem 1rem;border-radius:30px;">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="nominate-hero">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Pinnacle Excellence Awards Africa · 2026</span>
+      <h1>{% if nominations_open %}Nominate Yourself for Excellence{% else %}Nominations Closed{% endif %}</h1>
+      <p class="mx-auto" style="max-width:560px;">
+        {% if nominations_open %}
+          Fill in the details below — it takes less than two minutes, and your nomination is instantly approved!
+        {% else %}
+          Nominations for the Pinnacle Excellence Awards Africa 2026 are currently closed. Please check back soon.
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-wrap">
+  <div class="container">
+
+    {% if not nominations_open %}
+    <div class="form-card" style="margin-bottom:20px;text-align:center;padding:2rem;">
+      <div style="width:70px;height:70px;border-radius:50%;background:rgba(220,53,69,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+        <i class="fas fa-lock" style="font-size:1.8rem;color:#dc3545;"></i>
+      </div>
+      <h4 style="font-family:var(--font-display);font-weight:700;margin-bottom:10px;">Nominations Are Currently Closed</h4>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.6;max-width:480px;margin:0 auto 20px;">
+        The nomination window for the Pinnacle Excellence Awards Africa 2026 has been temporarily closed by the organizers.
+        Please check back soon — we'll announce the next window on our social channels.
+      </p>
+      <div class="d-flex flex-wrap gap-3 justify-content-center mt-3">
+        <a href="/" class="btn-photo"><i class="fas fa-home"></i> Back to Home</a>
+        <a href="{% url 'all_nominees' %}" class="btn-photo"><i class="fas fa-users"></i> View Nominees</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="form-card" style="{% if not nominations_open %}display:none;{% endif %}">
+
+      {% if nominations_open %}
+      <div class="closed-notice" style="background:#e6f4ec;border-left-color:var(--green);">
+        <i class="fas fa-check-circle" style="color:var(--green);"></i>
+        <div>
+          <div class="title">Nominations Are Open</div>
+          <div class="desc">Your nomination will be auto-approved and visible on the site immediately. Your personalised voting link will be emailed to you.</div>
+        </div>
+      </div>
+      {% endif %}
+
+      <form id="nominateForm" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <fieldset id="nominateFieldset">
+          <div class="form-section-label">Your Nomination</div>
+
+          <!-- PHOTO UPLOAD -->
+          <div class="photo-upload-row">
+            <div class="photo-circle" id="photoCircle">
+              <i class="fas fa-camera" id="photoIcon"></i>
+              <img id="photoPreview" style="display:none;" alt="Profile photo preview">
+            </div>
+            <div class="photo-upload-text">
+              <button type="button" class="btn-photo" id="photoBtn">Add Profile Photo</button>
+              <div class="hint">Required — upload a clear photo of yourself</div>
+              <input type="file" id="photoInput" accept="image/*" style="display:none;">
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label-moika" for="nomName">Full Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control-moika" id="nomName" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-moika" for="nomStageName">Stage / Artist Name <span class="opt">(optional)</span></label>
+              <input type="text" class="form-control-moika" id="nomStageName" placeholder="How you're known publicly">
+            </div>
+          </div>
+
+          <!-- MAIN CATEGORY DROPDOWN -->
+          <div class="main-category-select-wrap">
+            <label class="form-label-moika" for="mainCategorySelect">Main Category <span class="text-danger">*</span></label>
+            <select class="form-select-moika" id="mainCategorySelect" required>
+              <option value="">Select a main category</option>
+              {% regroup categories by group as category_groups %}
+              {% for group in category_groups %}
+                <option value="{{ group.grouper }}">{{ group.grouper }}</option>
+              {% endfor %}
+            </select>
+            <div class="field-help">Select the main area that best fits your work.</div>
+          </div>
+
+          <!-- AREA OF EXCELLENCE (SUB-CATEGORY) DROPDOWN -->
+          <div class="sub-category-select-wrap">
+            <label class="form-label-moika" for="subCategorySelect">Area of Excellence / Award <span class="text-danger">*</span></label>
+            <select class="form-select-moika" id="subCategorySelect" required disabled>
+              <option value="">First select a main category above</option>
+              {% regroup categories by group as category_groups %}
+              {% for group in category_groups %}
+                <optgroup label="{{ group.grouper }}" class="sub-optgroup" data-group="{{ group.grouper }}">
+                  {% for category in group.list %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            </select>
+            <div class="field-help">Select the specific award you want to be nominated for.</div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label-moika" for="nomPhone">Phone Number <span class="text-danger">*</span></label>
+              <input type="tel" class="form-control-moika" id="nomPhone" placeholder="e.g. 0712345678" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-moika" for="nomEmail">Email Address <span class="text-danger">*</span></label>
+              <input type="email" class="form-control-moika" id="nomEmail" placeholder="you@gmail.com" required>
+              <div class="field-help">Your personalised voting link will be sent here.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label-moika" for="nomBio">Brief Bio <span class="text-danger">*</span></label>
+              <textarea class="form-control-moika" id="nomBio" rows="4" placeholder="A couple of sentences about what makes your work stand out..." required></textarea>
+            </div>
+          </div>
+
+          <div class="form-check-nom mt-3 mb-4">
+            <input type="checkbox" id="confirmCheck" required>
+            <label for="confirmCheck">I confirm the details above are accurate and belong to me.</label>
+          </div>
+
+          <button type="submit" class="btn-submit-nom" id="submitBtn">
+            <i class="fas fa-pen-fancy me-2"></i> Submit My Nomination
+          </button>
+
+          <div class="trust-row">
+            <span><i class="fas fa-lock"></i> Free to enter</span>
+            <span><i class="fas fa-clock"></i> Takes 2 minutes</span>
+            <span><i class="fas fa-check-circle"></i> Auto-approved instantly</span>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-moika">
+  <div class="container text-center">
+    <p class="small">&copy; {% now "Y" %} Pinnacle Excellence Awards Africa. All rights reserved.</p>
+    <p class="small" style="color:#6C7B72;">Celebrating Excellence. Inspiring Impact. Honouring Greatness.</p>
+  </div>
+</footer>
+
+<!-- CONFIRMATION MODAL -->
+<div class="modal fade modal-nom" id="confirmModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="success-icon"><i class="fas fa-trophy"></i></div>
+        <h4 class="font-display" id="confirmName">You're in the running!</h4>
+        <p class="lead-text">That's a bold step — you've just put yourself in the running for the Pinnacle Excellence Awards. Your personalised voting link is ready to share!</p>
+
+        <div class="link-box">
+          <input type="text" id="voteLink" readonly value="">
+          <button type="button" id="copyLinkBtn">Copy</button>
+        </div>
+
+        <div class="share-row">
+          <a class="share-btn" id="shareWhatsapp" href="#" target="_blank" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a class="share-btn" id="shareFacebook" href="#" target="_blank" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a class="share-btn" id="shareTwitter" href="#" target="_blank" aria-label="Share on X"><i class="fab fa-twitter"></i></a>
+          <a class="share-btn" id="shareEmail" href="#" aria-label="Share by email"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <a href="/" class="btn-photo">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-moika" id="toastMoika"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ============================================================
+  // STATE
+  // ============================================================
+  const NOMINATIONS_OPEN = window.PINNACLE_STATE.nominationsOpen;
+
+  // ============================================================
+  // TOAST
+  // ============================================================
+  function showToast(msg) {
+    const t = document.getElementById('toastMoika');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  // If nominations are closed, block everything up front
+  if (!NOMINATIONS_OPEN) {
+    const form = document.getElementById('nominateForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showToast('⚠️ Nominations are currently closed.');
+        return false;
+      }, true);
+    }
+    // Stop here — don't wire up anything else
+    return;
+  }
+
+  // ============================================================
+  // MAIN CATEGORY → SUB-CATEGORY FILTERING
+  // ============================================================
+  const mainSelect = document.getElementById('mainCategorySelect');
+  const subSelect = document.getElementById('subCategorySelect');
+  const allOptgroups = subSelect.querySelectorAll('optgroup');
+
+  mainSelect.addEventListener('change', function() {
+    const selectedGroup = this.value;
+    
+    // Reset sub-select
+    subSelect.value = '';
+    subSelect.disabled = false;
+    
+    // Enable/disable optgroups
+    allOptgroups.forEach(optgroup => {
+      if (optgroup.dataset.group === selectedGroup) {
+        optgroup.disabled = false;
+        optgroup.style.display = '';
+      } else {
+        optgroup.disabled = true;
+        optgroup.style.display = 'none';
+      }
+    });
+    
+    // Auto-select first option in this group
+    if (selectedGroup) {
+      const matchingOptgroup = subSelect.querySelector(`optgroup[data-group="${selectedGroup}"]`);
+      if (matchingOptgroup) {
+        const firstOption = matchingOptgroup.querySelector('option');
+        if (firstOption) {
+          subSelect.value = firstOption.value;
+        }
+      }
+    } else {
+      // No main selected → re-enable all and clear
+      allOptgroups.forEach(optgroup => {
+        optgroup.disabled = true;
+        optgroup.style.display = '';
+      });
+      subSelect.value = '';
+      subSelect.disabled = true;
+    }
+  });
+
+  // ============================================================
+  // PHOTO UPLOAD
+  // ============================================================
+  const photoCircle = document.getElementById('photoCircle');
+  const photoBtn = document.getElementById('photoBtn');
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+  const photoIcon = document.getElementById('photoIcon');
+
+  function openPicker() { photoInput.click(); }
+  photoCircle.addEventListener('click', openPicker);
+  photoBtn.addEventListener('click', openPicker);
+
+  let photoFile = null;
+
+  photoInput.addEventListener('change', function() {
+    const file = this.files && this.files[0];
+    if (!file) return;
+    
+    // Validate size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('⚠️ Photo must be under 5MB.');
+      this.value = '';
+      return;
+    }
+    
+    // Validate type
+    if (!file.type.startsWith('image/')) {
+      showToast('⚠️ Please upload an image file.');
+      this.value = '';
+      return;
+    }
+    
+    photoFile = file;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      photoPreview.src = e.target.result;
+      photoPreview.style.display = 'block';
+      photoIcon.style.display = 'none';
+      photoBtn.textContent = 'Change Photo';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // ============================================================
+  // COOKIE HELPER
+  // ============================================================
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // ============================================================
+  // FORM SUBMIT
+  // ============================================================
+  const form = document.getElementById('nominateForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Final check
+    if (!NOMINATIONS_OPEN) {
+      showToast('⚠️ Nominations are currently closed.');
+      return;
+    }
+
+    // Validate photo
+    if (!photoFile) {
+      showToast('⚠️ Please upload a profile photo.');
+      photoCircle.style.borderColor = '#dc3545';
+      setTimeout(() => photoCircle.style.borderColor = '', 3000);
+      return;
+    }
+
+    const name = document.getElementById('nomName').value.trim();
+    const stageName = document.getElementById('nomStageName').value.trim();
+    const mainCategory = document.getElementById('mainCategorySelect').value;
+    const categoryId = document.getElementById('subCategorySelect').value;
+    const phone = document.getElementById('nomPhone').value.trim();
+    const email = document.getElementById('nomEmail').value.trim();
+    const bio = document.getElementById('nomBio').value.trim();
+    const confirmed = document.getElementById('confirmCheck').checked;
+
+    if (!name || !mainCategory || !categoryId || !phone || !email || !bio || !confirmed) {
+      showToast('⚠️ Please fill in all required fields.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showToast('⚠️ Please enter a valid email address.');
+      return;
+    }
+
+    const phoneRegex = /^0[17]\d{8}$/;
+    if (!phoneRegex.test(phone)) {
+      showToast('⚠️ Please enter a valid phone number (e.g. 0712345678).');
+      return;
+    }
+
+    // Disable button
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
+
+    // Create FormData for multipart upload
+    const formData = new FormData();
+    formData.append('nominee_name', name);
+    formData.append('nominee_email', email);
+    formData.append('nominee_phone', phone);
+    formData.append('category_id', parseInt(categoryId));
+    formData.append('description', bio);
+    formData.append('is_self_nomination', 'true');
+    formData.append('nominator_name', name);
+    formData.append('nominator_email', email);
+    formData.append('nominator_phone', phone);
+    formData.append('photo', photoFile);
+
+    if (stageName) {
+      formData.append('nominee_stage_name', stageName);
+    }
+
+    fetch('/api/nominate/', {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const firstName = name.split(' ')[0] || 'Friend';
+        document.getElementById('confirmName').textContent = 'You\'re in the running, ' + firstName + '!';
+
+        let fullUrl = data.nominee?.voting_link || '';
+        if (!fullUrl || fullUrl === '/') {
+          const slug = data.nominee?.slug || '';
+          fullUrl = window.location.origin + '/vote/' + slug + '/';
+        }
+
+        if (fullUrl.startsWith('http')) {
+          document.getElementById('voteLink').value = fullUrl;
+        } else if (fullUrl.startsWith('/')) {
+          document.getElementById('voteLink').value = window.location.origin + fullUrl;
+        } else {
+          const slug = data.nominee?.slug || '';
+          document.getElementById('voteLink').value = window.location.origin + '/vote/' + slug + '/';
+        }
+
+        const shareText = encodeURIComponent('I just nominated myself for the Pinnacle Excellence Awards Africa! Please support me by voting here: ' + document.getElementById('voteLink').value);
+        document.getElementById('shareWhatsapp').href = 'https://wa.me/?text=' + shareText;
+        document.getElementById('shareFacebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.getElementById('voteLink').value);
+        document.getElementById('shareTwitter').href = 'https://twitter.com/intent/tweet?text=' + shareText;
+        document.getElementById('shareEmail').href = 'mailto:?subject=' + encodeURIComponent('Vote for me at the Pinnacle Excellence Awards') + '&body=' + shareText;
+
+        const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        modal.show();
+
+        // Reset form
+        form.reset();
+        photoPreview.style.display = 'none';
+        photoIcon.style.display = 'block';
+        photoBtn.textContent = 'Add Profile Photo';
+        photoFile = null;
+        
+        // Reset dropdowns
+        subSelect.disabled = true;
+        subSelect.value = '';
+        allOptgroups.forEach(optgroup => {
+          optgroup.disabled = true;
+          optgroup.style.display = '';
+        });
+
+        submitBtn.innerHTML = '<i class="fas fa-check me-2"></i> Done!';
+        setTimeout(() => {
+          submitBtn.innerHTML = '<i class="fas fa-pen-fancy me-2"></i> Submit My Nomination';
+          submitBtn.disabled = false;
+        }, 3000);
+
+        showToast('✅ ' + data.message);
+
+      } else {
+        showToast('❌ ' + (data.message || 'Something went wrong. Please try again.'));
+        submitBtn.innerHTML = '<i class="fas fa-pen-fancy me-2"></i> Submit My Nomination';
+        submitBtn.disabled = false;
+      }
+    })
+    .catch(error => {
+      showToast('❌ An error occurred. Please try again.');
+      submitBtn.innerHTML = '<i class="fas fa-pen-fancy me-2"></i> Submit My Nomination';
+      submitBtn.disabled = false;
+      console.error('Error:', error);
+    });
+  });
+
+  // ============================================================
+  // COPY LINK
+  // ============================================================
+  document.getElementById('copyLinkBtn').addEventListener('click', function() {
+    const input = document.getElementById('voteLink');
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value).then(() => {
+      const btn = document.getElementById('copyLinkBtn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1800);
+      showToast('✅ Link copied!');
+    }).catch(() => {
+      document.execCommand('copy');
+      showToast('✅ Link copied!');
+    });
+  });
+
+});
+</script>
+</body>
+</html>
